@@ -86,6 +86,15 @@ const images = [
 
   listEl.innerHTML  = galleryCardTemplate;
 
+  const onListGalleryClick = event => {
+    event.preventDefault();
+    if(event.target === event.currentTarget){
+        return;
+    }
+    const imgCard = event.target.closest('.gallery-item');
+    console.log(imgCard);
+  }
+  listEl.addEventListener('click', onListGalleryClick);
 
 
-//   event.preventDefault();
+ 
