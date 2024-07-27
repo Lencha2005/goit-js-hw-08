@@ -64,10 +64,9 @@ const images = [
     },
   ];
 
-  const listEl = document.querySelector('.gallery');
+  
   
   const createGalleryCard = imgInfo => {
-   
     return `
     <li class="gallery-item">
   <a class="gallery-link" href="${imgInfo.original}">
@@ -82,7 +81,9 @@ const images = [
   };
 
   const galleryCardTemplate = images.map(img => createGalleryCard(img)).join('');
-  console.log(galleryCardTemplate)
+//   console.log(galleryCardTemplate);
+
+  const listEl = document.querySelector('.gallery');
 
   listEl.innerHTML  = galleryCardTemplate;
 
@@ -91,8 +92,25 @@ const images = [
     if(event.target === event.currentTarget){
         return;
     }
-    const imgCard = event.target.closest('.gallery-item');
-    console.log(imgCard);
+    const imgCard = event.target.closest('.gallery-image');
+
+    const imgData = imgCard.dataset.source;
+    console.log(imgData);
+
+    const imageInfo = images.find(img => img.original === imgData);
+    console.log(imageInfo);
+
+    const instance = basicLightbox.create(`
+    <div class="modal">
+    <img class="gallery-modal-image" src="${imageInfo.original}" />
+        <p class="gallery-modal-text">
+        ${imageInfo.description}
+        </p>
+    </div>
+`)
+
+instance.show()
+   
   }
   listEl.addEventListener('click', onListGalleryClick);
 
